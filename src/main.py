@@ -14,8 +14,8 @@ if len(sys.argv) == 7 :
     TWITTER_ACCESS_SECRET = sys.argv[6]
 
     logger.debug("Checking tweet interval!")
-    if re.match("^\d\d?[HhMmSs]$",TWEET_INTERVAL) == None :
-        logger.error("The tweet interval must look like this: 1h or 45m or 12s!")
+    if re.match("^\d\d?[HhMm]$",TWEET_INTERVAL) == None :
+        logger.error("The tweet interval must look like this: 1h or 45m!")
     else : 
         logger.info("Bot is booting!")
         # TODO Start bot logic
