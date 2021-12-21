@@ -21,8 +21,8 @@ jobs:
         with:
           python-version: 3.8 #install the needed python version
       - name: Execute Twitter Bot # run the python script
-        run: |
-          ls
+        run: | 
+          python src/main.py $TWEET_INTERVAL $FIREBASE_API_KEY $TWITTER_API_KEY $TWITTER_API_SECRET $TWITTER_ACCESS_TOKEN $TWITTER_ACCESS_SECRET
         env:
           TWEET_INTERVAL: "1h"
           FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
