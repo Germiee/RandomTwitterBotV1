@@ -21,7 +21,6 @@ jobs:
         with:
           python-version: 3.8 #install the needed python version
       - name: Execute Twitter Bot # run the python script
-        working-directory: src
         run: |
           ls
         env:
