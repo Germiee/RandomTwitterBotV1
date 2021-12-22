@@ -20,6 +20,11 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.8 #install the needed python version
+      - name: Install dependencies
+        run: |
+            python -m pip install --upgrade pip
+            pip install firebase-admin
+            pip install python-twitter
       - name: Execute Twitter Bot # run the python script
         run: | 
           python src/main.py $TWEET_INTERVAL $FIREBASE_API_KEY $TWITTER_API_KEY $TWITTER_API_SECRET $TWITTER_ACCESS_TOKEN $TWITTER_ACCESS_SECRET

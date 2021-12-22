@@ -1,6 +1,7 @@
 import sys
 import re
 import bot_logic as bot
+import twitter_communications as twitter
 from loguru import logger
 
 if len(sys.argv) == 7 :
@@ -18,7 +19,8 @@ if len(sys.argv) == 7 :
         logger.error("The tweet interval must look like this: 1h or 45m!")
     else : 
         logger.info("Bot is booting!")
-        # TODO Start bot logic
+        # TODO Start bot
+        twitter.__init__(TWITTER_API_KEY,TWITTER_API_SECRET,TWITTER_ACCESS_TOKEN,TWITTER_ACCESS_SECRET)
 else :
     logger.error('Missing arguments!')
     logger.error('Usage: main.py <TWEET-INTERVAL> <FIREBASE-API-KEY> <TWITTER-API-KEY> <TWITTER-API-SECRET> <TWITTER-ACCESS-TOKEN> <TWITTER-ACCESS-SECRET>')
