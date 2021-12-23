@@ -26,12 +26,16 @@ jobs:
             pip install loguru 
             pip install firebase-admin
             pip install tweepy
+      - name: Writing Firebase Key File
+        run: | 
+            echo $FIREBASE_API_KEY > firebase_api_key.json
+        env:
+          FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
       - name: Execute Twitter Bot # run the python script
         run: | 
-          python src/main.py $TWEET_INTERVAL $FIREBASE_API_KEY $TWITTER_API_KEY $TWITTER_API_SECRET $TWITTER_ACCESS_TOKEN $TWITTER_ACCESS_SECRET
+          python src/main.py $TWEET_INTERVAL firebase_api_key.json $TWITTER_API_KEY $TWITTER_API_SECRET $TWITTER_ACCESS_TOKEN $TWITTER_ACCESS_SECRET
         env:
           TWEET_INTERVAL: "1h"
-          FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
           TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
           TWITTER_API_SECRET: ${{ secrets.TWITTER_API_KEY_SECRET }}
           TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}

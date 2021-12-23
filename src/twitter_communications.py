@@ -10,5 +10,7 @@ def __init__(api_key, api_secret, access_token, access_secret) :
 
         client = tweepy.API(auth)
         client.update_status("#Python Rocks!")
+        
+        logger.info('Connected to twitter!')
     except:
         logger.error('Unable to connect to twitter!')
