@@ -37,6 +37,38 @@ def useTweet() :
 
     return tweet
 
+# Fetches the number of tweets that have not been tweeted yet
+def untweetedTweetsCount() :
+    query = tweets_ref.where(u'HasBeenTweeted', u'==', False)
+    docs = list(query.stream())
+    return len(docs)
+
+# Fetches the number of all tweets in the database
+def totalTweetCount() :
+    docs = list(tweets_ref.get())
+    return len(docs)
+
+# Fetches the number of tweets by a specific user, that have not been tweeted yet
+def untweetedTweetsByUser(username) :
+    if type(username) != str :
+        return None
+
+    query = tweets_ref.where(u'Username', u'>=', username.upper())\
+                    .where(u'Username', u'<=', username.lower() + u'\uf8ff')
+    query = query.where(u'HasBeenTweeted', u'==', False)
+    docs = list(query.stream())
+    return len(docs)
+
+# Fetches the number of all tweets by a specific user
+def totalTweetsByUser(username) :
+    if type(username) != str :
+        return None
+
+    query = tweets_ref.where(u'Username', u'>=', username.upper())\
+                    .where(u'Username', u'<=', username.lower() + '\uf8ff')
+    docs = list(query.stream())
+    return len(docs)
+
 # Add a tweet to the database
 def addTweet(text, username) :
     tweet = {
