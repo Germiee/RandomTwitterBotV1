@@ -17,11 +17,11 @@ def __init__(api_key, api_secret, access_token, access_secret) :
     except Exception as e:
         # Just print(e) is cleaner and more likely what you want,
         # but if you insist on printing message specifically whenever possible...
+        logger.error('Unable to connect to twitter!')
         if hasattr(e, 'message'):
             print(e.message)
         else:
-            print(e)
-            logger.error('Unable to connect to twitter!')
+            print(e) 
 
 def get_new_messages() :
     toReturn = []
