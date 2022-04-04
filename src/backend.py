@@ -17,7 +17,7 @@ def __init__(firebase_file_path) :
         logger.error('Unable to connect to firebase!') 
 
 # Fetch a tweet
-def lookUpTweet() :
+def look_up_tweet() :
     query = tweets_ref.where(u'HasBeenTweeted', u'==', False).limit(1)
     docs = query.stream()
 
@@ -27,8 +27,8 @@ def lookUpTweet() :
     return None
 
 # Fetch a tweet and set it's "HasBeenTweeted" to true
-def useTweet() :
-    tweet = lookUpTweet()
+def use_tweet() :
+    tweet = look_up_tweet()
     
     if tweet == None :
         return None
@@ -38,18 +38,18 @@ def useTweet() :
     return tweet
 
 # Fetches the number of tweets that have not been tweeted yet
-def untweetedTweetsCount() :
+def untweeted_tweets_count() :
     query = tweets_ref.where(u'HasBeenTweeted', u'==', False)
     docs = list(query.stream())
     return len(docs)
 
 # Fetches the number of all tweets in the database
-def totalTweetCount() :
+def total_tweet_count() :
     docs = list(tweets_ref.get())
     return len(docs)
 
 # Fetches the number of tweets by a specific user, that have not been tweeted yet
-def untweetedTweetsByUser(username) :
+def untweeted_tweets_by_user(username) :
     if type(username) != str :
         return None
 
@@ -60,7 +60,7 @@ def untweetedTweetsByUser(username) :
     return len(docs)
 
 # Fetches the number of all tweets by a specific user
-def totalTweetsByUser(username) :
+def total_tweets_by_user(username) :
     if type(username) != str :
         return None
 
@@ -70,7 +70,7 @@ def totalTweetsByUser(username) :
     return len(docs)
 
 # Add a tweet to the database
-def addTweet(text, username) :
+def add_tweet(text, username) :
     tweet = {
         u'HasBeenTweeted': False,
         u'Time': datetime.utcnow(),
