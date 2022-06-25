@@ -5,18 +5,28 @@ global client
 
 def __init__(api_key, api_secret, access_token, access_secret) :  
     try :
-        client = tweepy.Client(
-            consumer_key=api_key,
-            consumer_secret=api_secret,
-            access_token=access_token,
-            access_token_secret=access_secret
+        # This grants access to the Twitter API V2
+        # Sadly the V2 API does not have proper direct message handling yet (for some stupid reason)
+        # client = tweepy.Client(
+        #     consumer_key=api_key,
+        #     consumer_secret=api_secret,
+        #     access_token=access_token,
+        #     access_token_secret=access_secret
+        # )
+        
+        auth = tweepy.OAuth1UserHandler(
+            api_key,
+            api_secret,
+            access_token,
+            access_secret
         )
 
+        client = tweepy.API(auth)
         client.create_tweet(text="#Python Rocks!")
 
         logger.info('Connected to twitter!')
 
-        #get_new_messages()
+        get_new_messages()
     except Exception as e:
         # Just print(e) is cleaner and more likely what you want,
         # but if you insist on printing message specifically whenever possible...
