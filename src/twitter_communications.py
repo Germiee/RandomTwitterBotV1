@@ -29,24 +29,43 @@ def __init__(api_key, api_secret, access_token, access_secret) :
         # but if you insist on printing message specifically whenever possible...
         logger.error('Unable to connect to twitter!')
         if hasattr(e, 'message'):
-            logger.error("Error message: " +e.message)
+            logger.error("Error message: {}", e.message)
         else:
-            logger.error(e) 
+            logger.error("Error message: {}", e) 
         return None #we return none just so client variable is really lost
 
 def get_new_messages(client) :
     logger.info("Trying to get direct messages")
-    all_messages = client.get_direct_messages(count = 200)
+    try :
+        all_messages = client.get_direct_messages(count = 200)
 
-    logger.info("Number of messages (Including the bots messages): ", all_messages.count())
+        logger.info("Number of messages (Including the bots messages): {}", len(all_messages))
 
-    new_messages = []
-    for mes in all_messages:
-        if mes.message_create["sender_id"] != 1332712271987023874 :
-            new_messages.append(mes)
-        else : 
-            logger.info("Found message from bot: ",mes.message.create["message_data"]["text"])
+        new_messages = []
+        for mes in all_messages:
+            if mes.message_create["sender_id"] != 1332712271987023874 :
+                new_messages.append(mes)
+            else : 
+                logger.info("Found message from bot: {}", mes.message.create["message_data"]["text"])
+        return new_messages
 
-    return new_messages
+    except Exception as e:
+        logger.error('Could not get direct messages')
+        if hasattr(e, 'message'):
+            logger.error("Error message: {}", e.message)
+        else:
+            logger.error("Error message: {}",e) 
+        return None
+    
 
         
+def delete_message(client, id):
+    logger.info("Deleting direct message with the ID: {}", id)
+    try :
+        client.delete_direct_message(id)
+    except Exception as e:
+        logger.error("Could not delete message")
+        if hasattr(e, 'message'):
+            logger.error("Error message: {}", e.message)
+        else:
+            logger.error("Error message: {}", e) 
