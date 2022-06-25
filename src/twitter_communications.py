@@ -43,7 +43,7 @@ def get_new_messages(client) :
 
         new_messages = []
         for mes in all_messages:
-            if mes.message_create["sender_id"] != 1332712271987023874 :
+            if mes.message_create["sender_id"] != "1332712271987023874" :
                 new_messages.append(mes)
             else : 
                 logger.info("Found message from bot: {}", mes.message_create["message_data"]["text"])
@@ -71,7 +71,7 @@ def delete_message(client, id):
             logger.error("Error message: {}", e) 
 
 def send_message(client, id, content):
-    logger.info("Sending direct message to the user: {}", id)
+    logger.info("Sending direct message to the user with the ID: {}", id)
     try :
         client.send_direct_message(id,content)
     except Exception as e:
