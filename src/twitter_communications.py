@@ -37,7 +37,7 @@ def __init__(api_key, api_secret, access_token, access_secret) :
 def get_new_messages(client) :
     toReturn = []
     logger.info("Trying to get direct messages")
-    messages = client.get_direct_messages(count = 50, cursor = -1)
+    messages = client.get_direct_messages(count = 200)
 
     for m in messages:
         logger.info(m.message_create.message_data.text)
