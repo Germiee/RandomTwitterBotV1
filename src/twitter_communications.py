@@ -35,11 +35,18 @@ def __init__(api_key, api_secret, access_token, access_secret) :
         return None #we return none just so client variable is really lost
 
 def get_new_messages(client) :
-    toReturn = []
     logger.info("Trying to get direct messages")
-    messages = client.get_direct_messages(count = 200)
+    all_messages = client.get_direct_messages(count = 200)
 
-    for m in messages:
-        logger.info(m.message_create['message_data']['text'])
+    logger.info("Number of messages (Including the bots messages): ", all_messages.count())
+
+    new_messages = []
+    for mes in all_messages:
+        if mes.message_create["sender_id"] != 1332712271987023874 :
+            new_messages.append(mes)
+        else : 
+            logger.info("Found message from bot: ",mes.message.create["message_data"]["text"])
+
+    return new_messages
 
         
