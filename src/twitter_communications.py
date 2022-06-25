@@ -26,7 +26,6 @@ def __init__(api_key, api_secret, access_token, access_secret) :
 
         logger.info('Connected to twitter!')
 
-        get_new_messages()
     except Exception as e:
         # Just print(e) is cleaner and more likely what you want,
         # but if you insist on printing message specifically whenever possible...
@@ -38,8 +37,8 @@ def __init__(api_key, api_secret, access_token, access_secret) :
 
 def get_new_messages() :
     toReturn = []
-    cursor = -1
-    messages = client.get_direct_messages(50, cursor)
+    logger.info("Trying to get direct messages")
+    messages = client.get_direct_messages(count = 50, cursor = -1)
 
     for m in messages:
         logger.info(m.message_create.message_data.text)
