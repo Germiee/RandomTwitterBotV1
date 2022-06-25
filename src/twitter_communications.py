@@ -4,17 +4,16 @@ from loguru import logger
 global client
 
 #def __init__(api_key, api_secret, access_token, access_secret) :
-def __init__(bearer_token) :    
+def __init__(twitter_bearer_token) :    
     try :
         # auth = tweepy.OAuthHandler(api_key, api_secret)
         # auth.set_access_token(access_token, access_secret)
         
         # client = tweepy.API(auth)
 
-        client = tweepy.Client(bearer_token)
+        client = tweepy.Client(bearer_token = twitter_bearer_token)
 
         client.create_tweet(text="#Python Rocks!")
-
 
         logger.info('Connected to twitter!')
 
