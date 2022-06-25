@@ -13,12 +13,12 @@ def __init__(bearer_token) :
 
         client = tweepy.Client(bearer_token)
 
-        client.update_status("#Python Rocks!")
+        client.create_tweet(text="#Python Rocks!")
 
 
         logger.info('Connected to twitter!')
 
-        get_new_messages()
+        #get_new_messages()
     except Exception as e:
         # Just print(e) is cleaner and more likely what you want,
         # but if you insist on printing message specifically whenever possible...
@@ -26,7 +26,7 @@ def __init__(bearer_token) :
         if hasattr(e, 'message'):
             logger.error("Error message: " +e.message)
         else:
-            logger.error("Error message: " +e) 
+            logger.error(e) 
 
 def get_new_messages() :
     toReturn = []
