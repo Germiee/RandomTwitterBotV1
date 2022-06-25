@@ -23,8 +23,8 @@ if len(sys.argv) == 8 :
         logger.info('Bot is booting!')
         # TODO Start bot
         backend.__init__(FIREBASE_API_KEY_FILE_PATH)
-        #twitter.__init__(TWITTER_API_KEY,TWITTER_API_SECRET,TWITTER_ACCESS_TOKEN,TWITTER_ACCESS_SECRET)
-        twitter.__init__(TWITTER_BEARER_TOKEN)
+        twitter.__init__(TWITTER_API_KEY,TWITTER_API_SECRET,TWITTER_ACCESS_TOKEN,TWITTER_ACCESS_SECRET)
+        #twitter.__init__(TWITTER_BEARER_TOKEN)
 else :
     logger.error('Missing arguments!')
     logger.error('Usage: main.py <TWEET-INTERVAL> <FIREBASE-API-KEY-FILE-PATH> <TWITTER-API-KEY> <TWITTER-API-SECRET> <TWITTER-ACCESS-TOKEN> <TWITTER-ACCESS-SECRET> <TWITTER-BEARER-TOKEN>')
