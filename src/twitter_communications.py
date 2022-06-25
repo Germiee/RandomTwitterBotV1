@@ -46,9 +46,9 @@ def get_new_messages(client) :
             if mes.message_create["sender_id"] != 1332712271987023874 :
                 new_messages.append(mes)
             else : 
-                logger.info("Found message from bot: {}", mes.message.create["message_data"]["text"])
-        return new_messages
+                logger.info("Found message from bot: {}", mes.message_create["message_data"]["text"])
 
+        return new_messages
     except Exception as e:
         logger.error('Could not get direct messages')
         if hasattr(e, 'message'):
@@ -65,6 +65,17 @@ def delete_message(client, id):
         client.delete_direct_message(id)
     except Exception as e:
         logger.error("Could not delete message")
+        if hasattr(e, 'message'):
+            logger.error("Error message: {}", e.message)
+        else:
+            logger.error("Error message: {}", e) 
+
+def send_message(client, id, content):
+    logger.info("Sending direct message to the user: {}", id)
+    try :
+        client.send_direct_message(id,content)
+    except Exception as e:
+        logger.error("Could not send message")
         if hasattr(e, 'message'):
             logger.error("Error message: {}", e.message)
         else:
