@@ -1,8 +1,6 @@
 import tweepy
 from loguru import logger
 
-client = None
-
 def __init__(api_key, api_secret, access_token, access_secret) :  
     try :
         # This grants access to the Twitter API V2
@@ -26,6 +24,7 @@ def __init__(api_key, api_secret, access_token, access_secret) :
 
         logger.info('Connected to twitter!')
 
+        return client
     except Exception as e:
         # Just print(e) is cleaner and more likely what you want,
         # but if you insist on printing message specifically whenever possible...
@@ -34,8 +33,9 @@ def __init__(api_key, api_secret, access_token, access_secret) :
             logger.error("Error message: " +e.message)
         else:
             logger.error(e) 
+        return None #we return none just so client variable is really lost
 
-def get_new_messages() :
+def get_new_messages(client) :
     toReturn = []
     logger.info("Trying to get direct messages")
     messages = client.get_direct_messages(count = 50, cursor = -1)
