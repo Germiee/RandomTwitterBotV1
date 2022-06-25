@@ -13,7 +13,7 @@ def __init__(api_key, api_secret, access_token, access_secret) :
         #     access_token=access_token,
         #     access_token_secret=access_secret
         # )
-        
+
         auth = tweepy.OAuth1UserHandler(
             api_key,
             api_secret,
@@ -22,7 +22,7 @@ def __init__(api_key, api_secret, access_token, access_secret) :
         )
 
         client = tweepy.API(auth)
-        client.create_tweet(text="#Python Rocks!")
+        client.update_status("#Python Rocks!")
 
         logger.info('Connected to twitter!')
 
