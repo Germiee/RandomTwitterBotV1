@@ -2,18 +2,19 @@ import tweepy
 from loguru import logger
 
 global client
-def __init__(api_key, api_secret, access_token, access_secret) :
-    
-    try :
-        auth = tweepy.OAuthHandler(api_key, api_secret)
-        auth.set_access_token(access_token, access_secret)
 
-        client = tweepy.API(auth)
-        logger.info("################# - auth worked")
+#def __init__(api_key, api_secret, access_token, access_secret) :
+def __init__(bearer_token) :    
+    try :
+        # auth = tweepy.OAuthHandler(api_key, api_secret)
+        # auth.set_access_token(access_token, access_secret)
+        
+        # client = tweepy.API(auth)
+
+        client = tweepy.Client(bearer_token)
 
         client.update_status("#Python Rocks!")
 
-        logger.info("################# - update_status worked")
 
         logger.info('Connected to twitter!')
 
