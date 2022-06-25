@@ -1,7 +1,7 @@
 import tweepy
 from loguru import logger
 
-global client
+client = None
 
 def __init__(api_key, api_secret, access_token, access_secret) :  
     try :
