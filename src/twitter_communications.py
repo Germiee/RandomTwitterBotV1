@@ -1,6 +1,11 @@
 import tweepy
 from loguru import logger
 
+# The Twitter account id of our bot, needed for several requests
+# TODO add the option for an optional parameter to change this id
+default_bot_id = "1332712271987023874" 
+
+
 def __init__(api_key, api_secret, access_token, access_secret) :  
     try :
         # This grants access to the Twitter API V2
@@ -43,7 +48,7 @@ def get_new_messages(client) :
 
         new_messages = []
         for mes in all_messages:
-            if mes.message_create["sender_id"] != "1332712271987023874" :
+            if mes.message_create["sender_id"] != default_bot_id :
                 new_messages.append(mes)
             else : 
                 logger.info("Found message from bot: {}", mes.message_create["message_data"]["text"])
@@ -80,3 +85,4 @@ def send_message(client, id, content):
             logger.error("Error message: {}", e.message)
         else:
             logger.error("Error message: {}", e) 
+            
