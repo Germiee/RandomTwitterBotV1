@@ -87,10 +87,10 @@ def send_message(client, id, content):
             logger.error("Error message: {}", e) 
 
 
-def get_user_name(client, user_id):
-    logger.info("Trying to get username of user with the ID: {}", user_id)
+def get_user_name(client, id):
+    logger.info("Trying to get username of user with the ID: {}", id)
     try : 
-        user = client.get_user(user_id)
+        user = client.get_user(user_id = id)
         logger.info(user.name)
         return user.name # should return the users name, depends on twitters user object which is weird
     except Exception as e:
