@@ -25,10 +25,10 @@ if len(sys.argv) == 8 :
         backend.__init__(FIREBASE_API_KEY_FILE_PATH)
         api = twitter.__init__(TWITTER_API_KEY,TWITTER_API_SECRET,TWITTER_ACCESS_TOKEN,TWITTER_ACCESS_SECRET)
 
-        user_id = twitter.get_new_messages(api)[0].message_create.sender_id
+        user_id = twitter.get_new_messages(api)[0].message_create["sender_id"]
         logger.info(user_id)
         twitter.get_user_name(api,user_id)
-        
+
         #twitter.__init__(TWITTER_BEARER_TOKEN)
 else :
     logger.error('Missing arguments!')
