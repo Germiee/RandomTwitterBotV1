@@ -5,6 +5,8 @@ from loguru import logger
 # TODO add the option for an optional parameter to change this id
 default_bot_id = "1332712271987023874" 
 
+# Standard tweet content for testing/ exception purposes 
+standard_tweet_content = "This tweet is either a test or something went wrong ☹"
 
 def __init__(api_key, api_secret, access_token, access_secret) :  
     try :
@@ -95,6 +97,23 @@ def get_user_name(client, id):
         return user.name # should return the users name, depends on twitters user object which is weird
     except Exception as e:
         logger.error("Could not get username")
+        if hasattr(e, 'message'):
+            logger.error("Error message: {}", e.message)
+        else:
+            logger.error("Error message: {}", e) 
+
+def do_tweet(client, tweet_content="", reply_id=-1):  
+#reply_id is the id of the tweet that should be replied to, if it is -1 it will be ignored 
+    logger.info("Trying to make a new tweet")
+
+    try :
+        if reply_id == -1 and len(tweet_content) > 1 :
+            client.update_status(status=tweet_content) #Tweet with content defined through parameter
+        elif reply_id == -1 and len(tweet_content) < 1 :
+            client.update_status(status=standard_tweet_content) #backup test/error tweet if parameter is empty
+        # TODO add other elif statements for other cases 
+    except Exception as e:
+        logger.error("Could not create tweet")
         if hasattr(e, 'message'):
             logger.error("Error message: {}", e.message)
         else:
