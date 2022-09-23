@@ -108,10 +108,11 @@ def do_tweet(client, tweet_content="", reply_id=-1):
 
     try :
         if reply_id == -1 and len(tweet_content) > 1 :
-            client.update_status(status=tweet_content) #Tweet with content defined through parameter
-        elif reply_id == -1 and len(tweet_content) < 1 :
-            client.update_status(status=standard_tweet_content) #backup test/error tweet if parameter is empty
-        # TODO add other elif statements for other cases 
+            return client.update_status(status=tweet_content) #Tweet with content defined through parameter
+        elif reply_id != -1 and tweet_content.find("@") != -1 :
+            return client.update_status(status=tweet_content, in_reply_to_status_id=reply_id)
+        else :
+            return client.update_status(status=standard_tweet_content) #backup test/error tweet if parameter is empty 
     except Exception as e:
         logger.error("Could not create tweet")
         if hasattr(e, 'message'):

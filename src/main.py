@@ -21,12 +21,10 @@ if len(sys.argv) == 8 :
         logger.error('The tweet interval must look like this: 1h or 45m!')
     else : 
         logger.info('Bot is booting!')
+
         # TODO Start bot
         backend.__init__(FIREBASE_API_KEY_FILE_PATH)
         api = twitter.__init__(TWITTER_API_KEY,TWITTER_API_SECRET,TWITTER_ACCESS_TOKEN,TWITTER_ACCESS_SECRET)
-
-        twitter.do_tweet(api)
-        twitter.do_tweet(api,"dieses mal mit anderem content") # Test tweet
 
         #twitter.__init__(TWITTER_BEARER_TOKEN)
 else :
