@@ -15,18 +15,31 @@ jobs:
 
     steps:
       - name: checkout repo content
-        uses: actions/checkout@v2 # checkout the repository content to github runner.
+        uses: actions/checkout@v3 # checkout the repository content to github runner.
       - name: setup python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
-          python-version: 3.8 #install the needed python version
+          python-version: "3.10" #install the needed python version
+      - name: Install dependencies
+        run: |
+            python -m pip install --upgrade pip
+            pip install firebase-admin
+            pip install hatesonar
+            pip install langdetect 
+            pip install loguru 
+            pip install tweepy
+      - name: Writing Firebase Key File
+        run: | 
+            echo $FIREBASE_API_KEY > firebase_api_key.json
+        env:
+          FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
       - name: Execute Twitter Bot # run the python script
         run: | 
-          python src/main.py $TWEET_INTERVAL $FIREBASE_API_KEY $TWITTER_API_KEY $TWITTER_API_SECRET $TWITTER_ACCESS_TOKEN $TWITTER_ACCESS_SECRET
+          python src/main.py $TWEET_INTERVAL firebase_api_key.json $TWITTER_API_KEY $TWITTER_API_SECRET $TWITTER_ACCESS_TOKEN $TWITTER_ACCESS_SECRET $TWITTER_BEARER_TOKEN
         env:
           TWEET_INTERVAL: "1h"
-          FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
           TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
           TWITTER_API_SECRET: ${{ secrets.TWITTER_API_KEY_SECRET }}
           TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
           TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+          TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
