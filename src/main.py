@@ -24,7 +24,7 @@ if len(sys.argv) == 8 :
 
         # TODO Start bot
         backend.__init__(FIREBASE_API_KEY_FILE_PATH)
-        api = twitter.__init__(TWITTER_API_KEY,TWITTER_API_SECRET,TWITTER_ACCESS_TOKEN,TWITTER_ACCESS_SECRET)
+        twitter.__init__(TWITTER_API_KEY,TWITTER_API_SECRET,TWITTER_ACCESS_TOKEN,TWITTER_ACCESS_SECRET)
 
         #twitter.__init__(TWITTER_BEARER_TOKEN)
 else :

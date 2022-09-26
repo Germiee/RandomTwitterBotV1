@@ -25,7 +25,7 @@ def __init__(api_key, api_secret, access_token, access_secret) :
             access_token,
             access_secret
         )
-
+        global client
         client = tweepy.API(auth)
 
         logger.info('Connected to twitter!')
@@ -41,7 +41,7 @@ def __init__(api_key, api_secret, access_token, access_secret) :
             logger.error("Error message: {}", e) 
         return None #we return none just so client variable is really lost
 
-def get_new_messages(client) :
+def get_new_messages() :
     logger.info("Trying to get direct messages")
     try :
         all_messages = client.get_direct_messages(count = 200)
@@ -66,7 +66,7 @@ def get_new_messages(client) :
     
 
         
-def delete_message(client, id):
+def delete_message(id):
     logger.info("Deleting direct message with the ID: {}", id)
     try :
         client.delete_direct_message(id)
@@ -77,7 +77,7 @@ def delete_message(client, id):
         else:
             logger.error("Error message: {}", e) 
 
-def send_message(client, id, content):
+def send_message(id, content):
     logger.info("Sending direct message to the user with the ID: {}", id)
     try :
         client.send_direct_message(id,content)
@@ -89,7 +89,7 @@ def send_message(client, id, content):
             logger.error("Error message: {}", e) 
 
 
-def get_user_name(client, id):
+def get_user_name(id):
     logger.info("Trying to get username of user with the ID: {}", id)
     try : 
         user = client.get_user(user_id = id)
@@ -102,7 +102,7 @@ def get_user_name(client, id):
         else:
             logger.error("Error message: {}", e) 
 
-def do_tweet(client, tweet_content="", reply_id=-1):  
+def do_tweet(tweet_content="", reply_id=-1):  
 #reply_id is the id of the tweet that should be replied to, if it is -1 it will be ignored 
     logger.info("Trying to make a new tweet")
 
