@@ -14,9 +14,11 @@ def __init__(api:twitter, backend:backend):
 
 
 def check_messages():
+    logger.debug("Looking for new messages to add")
     messages = _api.get_new_messages()
 
     for mes in messages:
+        logger.debug("Going through all new messages")
         text = mes.message_create["message_data"]["text"]
         sender_name = _api.get_user_name(mes.message_create["sender_id"])
         _backend.add_tweet(text, sender_name)
