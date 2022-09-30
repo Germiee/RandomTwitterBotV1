@@ -24,11 +24,13 @@ def check_messages():
 
     for mes in messages:
         logger.debug("Going through all new messages")
+        _api.delete_message(mes.id) #This should theoretically delete the direct message 
         text = mes.message_create["message_data"]["text"]
         sender_name = _api.get_user_name(mes.message_create["sender_id"])
         _backend.add_tweet(text, sender_name)
 
 def tweet_making():
     logger.debug("Making tweet probably")
-    _api.do_tweet(_backend.look_up_tweet().text)
+    doc = _backend.look_up_tweet()
+    _api.do_tweet(doc["text"])
     # Gt tweet from backend, then do tweeting. pog
