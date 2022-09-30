@@ -9,9 +9,14 @@ def __init__(api:twitter, backend:backend):
     
     _api = api
     _backend = backend
-    messageTimer = Timer(1800.0, check_messages)
+    messageTimer = Timer(1800.0, check_messages) 
+    # This only gets executed once we need to make it recursive 
+    # or maybe make github action thingies start it over and over again. anything that works really
     messageTimer.start()
 
+    tweetTimer = Timer(300.0, tweet_making)
+
+    tweetTimer.start()
 
 def check_messages():
     logger.debug("Looking for new messages to add")
@@ -22,3 +27,8 @@ def check_messages():
         text = mes.message_create["message_data"]["text"]
         sender_name = _api.get_user_name(mes.message_create["sender_id"])
         _backend.add_tweet(text, sender_name)
+
+def tweet_making():
+    logger.debug("Making tweet probably")
+    _api.do_tweet(_backend.look_up_tweet().text)
+    # Gt tweet from backend, then do tweeting. pog
