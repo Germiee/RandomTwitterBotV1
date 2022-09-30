@@ -1,3 +1,4 @@
+import json
 from threading import Timer
 import twitter_communications as twitter
 import backend
@@ -32,5 +33,6 @@ def check_messages():
 def tweet_making():
     logger.debug("Making tweet probably")
     doc = _backend.look_up_tweet()
-    _api.do_tweet(doc.get("text")) # not properly documented, love it
+    logger.debug("Doc: "+doc)
+    #_api.do_tweet(doc) # not properly documented, love it
     # Gt tweet from backend, then do tweeting. pog
