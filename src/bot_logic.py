@@ -24,6 +24,9 @@ def startMessageTimer():
     messageTimer = Timer(900.0, check_messages) 
     messageTimer.start()
 
+startTweetTimer()
+startMessageTimer()
+
 def check_messages():
     
     logger.debug("Looking for new messages to add")
