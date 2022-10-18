@@ -1,3 +1,4 @@
+from email import message
 from threading import Timer
 import twitter_communications as twitter
 import backend
@@ -11,12 +12,12 @@ def __init__(api:twitter, backend:backend):
     _api = api
     _backend = backend
 
+    messageTimer = Timer(1800.0, check_messages) 
 
-    
-    # This only gets executed once we need to make it recursive 
-    # or maybe make github action thingies start it over and over again. anything that works really
+    tweetTimer = Timer(3600.0, tweet_making)
 
-
+    messageTimer.start()
+    tweetTimer.start()
 
 def check_messages():
     
@@ -46,6 +47,3 @@ def startTweetTimer():
 def startMessageTimer():
     messageTimer = Timer(900.0, check_messages) 
     messageTimer.start()
-
-startTweetTimer()
-startMessageTimer()
