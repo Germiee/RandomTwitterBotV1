@@ -16,16 +16,7 @@ def __init__(api:twitter, backend:backend):
     # This only gets executed once we need to make it recursive 
     # or maybe make github action thingies start it over and over again. anything that works really
 
-def startTweetTimer():
-    tweetTimer = Timer(300.0, tweet_making)
-    tweetTimer.start()
 
-def startMessageTimer():
-    messageTimer = Timer(900.0, check_messages) 
-    messageTimer.start()
-
-startTweetTimer()
-startMessageTimer()
 
 def check_messages():
     
@@ -47,3 +38,14 @@ def tweet_making():
     # Gt tweet from backend, then do tweeting. pog
 
     startTweetTimer()
+
+def startTweetTimer():
+    tweetTimer = Timer(300.0, tweet_making)
+    tweetTimer.start()
+
+def startMessageTimer():
+    messageTimer = Timer(900.0, check_messages) 
+    messageTimer.start()
+
+startTweetTimer()
+startMessageTimer()
